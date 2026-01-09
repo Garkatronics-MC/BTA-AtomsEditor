@@ -1,5 +1,6 @@
 <script>
-  import { onMount, afterUpdate } from "svelte";
+  import { onMount } from "svelte";
+  import { formData } from "../stores";
   import {
     Scene,
     PerspectiveCamera,
@@ -10,38 +11,43 @@
     Color,
     NearestFilter,
     TextureLoader,
+    // @ts-ignore
   } from "three";
+  // @ts-ignore
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-  const missin_tex =
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAKklEQVQokWO0tA9lwAZevXiAVZwJqygeMKqBGMCCK7zFJBSoY8OoBmIAAC/hBqHyKo3BAAAAAElFTkSuQmCC";
-  
-  export let top = missin_tex;
-  export let bottom = missin_tex;
-  export let west = missin_tex;
-  export let east = missin_tex;
-  export let north = missin_tex;
-  export let south = missin_tex;
-
-  /** @type {HTMLDivElement} */
+  // @ts-ignore
   let container;
-  /** @type {Mesh | null} */
-  let cube = null;
-  /** @type {Scene | null} */
-  let scene = null;
-  /** @type {TextureLoader | null} */
-  let textureLoader = null;
+  // @ts-ignore
+  let cube;
+  // @ts-ignore
+  let scene;
+  // @ts-ignore
+  let textureLoader;
+  let previousTextures = {};
 
+  // Función para cargar textura
+  // @ts-ignore
   function loadTexture(url) {
-    const tex = textureLoader.load(url);
+    // @ts-ignore
+    const tex = textureLoader.load(url || "");
     tex.magFilter = NearestFilter;
     tex.minFilter = NearestFilter;
     tex.generateMipmaps = false;
     return tex;
   }
 
+  // Crear el cubo inicial
   function createCube() {
-    const urls = [east, west, top, bottom, north, south];
+    const faces = $formData.textures.faces;
+    const urls = [
+      faces.east,
+      faces.west,
+      faces.top,
+      faces.bottom,
+      faces.north,
+      faces.south,
+    ];
     const materials = urls.map(
       (url) => new MeshBasicMaterial({ map: loadTexture(url) })
     );
@@ -49,43 +55,56 @@
     return new Mesh(geometry, materials);
   }
 
+  // Actualizar texturas
   function updateTextures() {
+    // @ts-ignore
     if (!cube) return;
-    const urls = [east, west, top, bottom, north, south];
+    const faces = $formData.textures.faces;
+    if (previousTextures === faces) {
+      return;
+    } else {
+      previousTextures = $formData.textures.faces;
+    }
+    const urls = [
+      faces.east,
+      faces.west,
+      faces.top,
+      faces.bottom,
+      faces.north,
+      faces.south,
+    ];
     urls.forEach((url, i) => {
+      // @ts-ignore
       cube.material[i].map = loadTexture(url);
+      // @ts-ignore
       cube.material[i].needsUpdate = true;
     });
   }
 
   onMount(() => {
+    // @ts-ignore
     if (!container) return;
 
-    // Scene
     scene = new Scene();
     scene.background = new Color("white");
 
-    // Camera
-    const fov = 35;
-    const aspect = container.clientWidth / container.clientHeight;
-    const near = 0.1;
-    const far = 100;
-    const camera = new PerspectiveCamera(fov, aspect, near, far);
+    const camera = new PerspectiveCamera(
+      35,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      100
+    );
     camera.position.set(0, 0, 10);
 
-    // Texture loader
     textureLoader = new TextureLoader();
 
-    // Create and add cube
     cube = createCube();
     scene.add(cube);
 
-    // Create renderer
     const renderer = new WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
@@ -95,34 +114,34 @@
     controls.minDistance = 5;
     controls.maxDistance = 20;
 
-    // Add canvas to div
     container.appendChild(renderer.domElement);
 
-    // Animation
     function animate() {
       requestAnimationFrame(animate);
       controls.update();
+      // @ts-ignore
       renderer.render(scene, camera);
     }
     animate();
 
-    // On resize
     const handleResize = () => {
+      // @ts-ignore
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
+      // @ts-ignore
       renderer.setSize(container.clientWidth, container.clientHeight);
     };
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
       renderer.dispose();
     };
   });
 
-  // Update textures when props change
-  afterUpdate(() => {
+  // Reacciona a cambios en el store
+  $effect(() => {
+    // @ts-ignore
     if (cube && textureLoader) {
       updateTextures();
     }
