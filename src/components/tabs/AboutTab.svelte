@@ -1,5 +1,7 @@
 <script lang="ts">
   import { toggleMode, mode } from "mode-watcher";
+	import logo from '$lib/assets/logo.svg';
+	import darklogo from '$lib/assets/darklogo.svg';
 </script>
 
 <div class="flex h-screen bg-background text-foreground">
@@ -23,7 +25,9 @@
 
     <div class="max-w-3xl mx-auto">
       <div class="flex w-full justify-center text-center">
-        <img src={mode.current === "light" ? "/BTA-AtomsEditor/logo.svg" : "/BTA-AtomsEditor/darklogo.svg"} alt="AtomEditor Logo" class="w-[200px] p-5 m-5" />
+        src={mode.current === "light"
+          ? logo
+          : darklogo}
       </div>
 
       <h1 class="text-center text-2xl font-semibold mb-4">
