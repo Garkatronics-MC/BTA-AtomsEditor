@@ -30,7 +30,7 @@
 
 <Modal showModal={showModal} bind:this={modal}>
   {#snippet header()}
-    <h2>
+    <h2 class="text-foreground">
       Inventory
       <br />
       <input
@@ -38,7 +38,7 @@
         bind:value={search}
         oninput={updateFilter}
         placeholder="Search items..."
-        class="border px-2 py-1 rounded w-full"
+        class="border-border bg-background text-foreground px-2 py-1 rounded w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
       />
     </h2>
   {/snippet}
@@ -47,8 +47,13 @@
     <div class="grid grid-cols-6 grid-rows-6 gap-2">
       {#each filteredItems as item}
         <button
-        type="button"
-          class="flex items-center justify-center border rounded h-16 w-50 text-sm text-center hover:bg-gray-100 cursor-pointer"
+          type="button"
+          class="flex items-center justify-center
+                 border border-border
+                 bg-background text-foreground
+                 rounded h-16 w-50 text-sm text-center
+                 hover:bg-muted hover:text-foreground
+                 cursor-pointer transition-colors"
           onclick={() => {
             onSelect(item);
             modal.close();
