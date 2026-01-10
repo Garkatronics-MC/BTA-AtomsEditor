@@ -1,7 +1,7 @@
 <script lang="ts">
   import { toggleMode, mode } from "mode-watcher";
-	import logo from '$lib/assets/logo.svg';
-	import darklogo from '$lib/assets/darklogo.svg';
+  import logo from '$lib/assets/logo.svg';
+  import darklogo from '$lib/assets/darklogo.svg';
 </script>
 
 <div class="flex h-screen bg-background text-foreground">
@@ -25,9 +25,9 @@
 
     <div class="max-w-3xl mx-auto">
       <div class="flex w-full justify-center text-center">
-        src={mode.current === "light"
+        <img src={mode.current === "light"
           ? logo
-          : darklogo}
+          : darklogo} alt="Logo" />
       </div>
 
       <h1 class="text-center text-2xl font-semibold mb-4">
