@@ -1,7 +1,6 @@
 <script lang="ts">
   import { toggleMode, mode } from "mode-watcher";
-  import logo from '$lib/assets/logo.svg';
-  import darklogo from '$lib/assets/darklogo.svg';
+ 
 </script>
 
 <div class="flex h-screen bg-background text-foreground">
