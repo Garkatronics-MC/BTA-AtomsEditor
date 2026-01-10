@@ -8,15 +8,23 @@ const config = {
   preprocess: vitePreprocess(),
 
   kit: {
-    
+
     adapter: adapter({
       pages: 'build',
       assets: 'build',
-      fallback: null  
+      fallback: null
     }),
     paths: {
       base: dev ? '' : '/BTA-AtomsEditor',
     },
+    prerender: {
+      handleHttpError: ({ path, referrer, message }) => {
+        if (path.includes('.svg') || path.includes('.png') || path.includes('.jpg')) {
+          return;
+        }
+        throw new Error(message);
+      }
+    }
   }
 };
 
