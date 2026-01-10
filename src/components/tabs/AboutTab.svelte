@@ -23,7 +23,7 @@
 
     <div class="max-w-3xl mx-auto">
       <div class="flex w-full justify-center text-center">
-        <img src={mode.current === "light" ? "logo.svg" : "darklogo.svg"} alt="AtomEditor Logo" class="w-[200px] p-5 m-5" />
+        <img src={mode.current === "light" ? "/BTA-AtomsEditor/logo.svg" : "/BTA-AtomsEditor/darklogo.svg"} alt="AtomEditor Logo" class="w-[200px] p-5 m-5" />
       </div>
 
       <h1 class="text-center text-2xl font-semibold mb-4">
