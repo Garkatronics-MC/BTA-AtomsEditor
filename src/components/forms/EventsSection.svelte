@@ -4,26 +4,27 @@
   import { formData } from "../../stores";
   import Section from "./Section.svelte";
 
+  // svelte-ignore export_let_unused
   export let errors: Record<string, string>;
 
-  if (!$formData.events.break) {
-    $formData.events.break = {
+  if (!$formData.events.on_break) {
+    $formData.events.on_break = {
       drop_itself: true,
       drops: [],
     };
-  } else if (!$formData.events.break.drops) {
-    $formData.events.break.drops = [];
+  } else if (!$formData.events.on_break.drops) {
+    $formData.events.on_break.drops = [];
   }
 
   function addDrop() {
-    $formData.events.break.drops = [
-      ...$formData.events.break.drops,
+    $formData.events.on_break.drops = [
+      ...$formData.events.on_break.drops,
       DropSchema.parse({}),
     ];
   }
 
   function removeDrop(index: number) {
-    $formData.events.break.drops = $formData.events.break.drops.filter(
+    $formData.events.on_break.drops = $formData.events.on_break.drops.filter(
       (_: any, i: number) => i !== index
     );
   }
@@ -34,23 +35,23 @@
     <label class="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
       <input
         type="checkbox"
-        bind:checked={$formData.events.break.drop_itself}
+        bind:checked={$formData.events.on_break.drop_itself}
         class="cursor-pointer accent-primary"
       />
-      Drop Itself on Break
+      Drop Itself on on_break
     </label>
   </div>
 
-  <p class="text-sm font-medium text-muted-foreground mb-3 mt-6">Break Drops</p>
+  <p class="text-sm font-medium text-muted-foreground mb-3 mt-6">on_break Drops</p>
 
-  {#each $formData.events.break.drops as drop, i}
+  {#each $formData.events.on_break.drops as drop, i}
     <div class="bg-muted p-4 rounded-md mb-3 border border-border">
       <div class="grid grid-cols-2 gap-4 mb-3">
         <div>
           <label class="block text-sm font-medium text-foreground mb-2">Item ID</label>
           <input
             type="number"
-            bind:value={$formData.events.break.drops[i].item}
+            bind:value={$formData.events.on_break.drops[i].item}
             class="w-full px-3 py-2
                    bg-background text-foreground
                    border border-border rounded-md
@@ -62,7 +63,7 @@
           <label class="block text-sm font-medium text-foreground mb-2">Chance (%)</label>
           <input
             type="number"
-            bind:value={$formData.events.break.drops[i].chance}
+            bind:value={$formData.events.on_break.drops[i].chance}
             class="w-full px-3 py-2
                    bg-background text-foreground
                    border border-border rounded-md
@@ -75,7 +76,7 @@
         <label class="block text-sm font-medium text-foreground mb-2">Cause</label>
         <select
           id="data-dropcause"
-          bind:value={$formData.events.break.drops[i].cause}
+          bind:value={$formData.events.on_break.drops[i].cause}
           class="w-full px-3 py-2
                  bg-background text-foreground
                  border border-border rounded-md

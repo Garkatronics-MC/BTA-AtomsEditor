@@ -3,7 +3,8 @@
   import { formData } from "../../stores";
   import Section from "./Section.svelte";
 
-  export let errors: Record<string, string>;
+  // svelte-ignore export_let_unused
+    export let errors: Record<string, string>;
 </script>
 
 <Section title="Sounds" subtitle="Sound effects">

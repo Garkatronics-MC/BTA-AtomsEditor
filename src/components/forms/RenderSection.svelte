@@ -2,6 +2,7 @@
   import { formData } from '../../stores';
   import Section from './Section.svelte';
   
+  // svelte-ignore export_let_unused
   export let errors: Record<string, string>;
 </script>
 
