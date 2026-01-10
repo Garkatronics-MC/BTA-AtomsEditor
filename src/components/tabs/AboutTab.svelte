@@ -25,9 +25,7 @@
 
     <div class="max-w-3xl mx-auto">
       <div class="flex w-full justify-center text-center">
-        <img src={mode.current === "light"
-          ? logo
-          : darklogo} alt="Logo" />
+        <img src={mode.current === "light" ? "logo.svg" : "darklogo.svg"} alt="Logo"/>
       </div>
 
       <h1 class="text-center text-2xl font-semibold mb-4">
