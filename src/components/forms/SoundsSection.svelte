@@ -8,13 +8,16 @@
 
 <Section title="Sounds" subtitle="Sound effects">
   <div class="mb-4">
-    <label for="sound" class="block text-sm font-medium text-gray-900 mb-2"
-      >Sound</label
-    >
+    <label for="sound" class="block text-sm font-medium text-foreground mb-2">
+      Sound
+    </label>
     <select
       id="data-dropcause"
       bind:value={$formData.sounds.sound}
-      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+      class="w-full px-3 py-2
+             bg-background text-foreground
+             border border-border rounded-md
+             focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
     >
       {#each Object.values(BlockSound) as sound}
         <option value={sound}>{sound}</option>

@@ -7,14 +7,23 @@
 
 <Section title="Render" subtitle="Rendering properties">
   <div class="mb-4">
-    <label class="flex items-center gap-2 text-sm font-medium text-gray-900 cursor-pointer">
-      <input type="checkbox" bind:checked={$formData.render.is_cube_shaped} class="cursor-pointer" />
+    <label class="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
+      <input
+        type="checkbox"
+        bind:checked={$formData.render.is_cube_shaped}
+        class="cursor-pointer accent-primary"
+      />
       Cube Shaped
     </label>
   </div>
+
   <div class="mb-4">
-    <label class="flex items-center gap-2 text-sm font-medium text-gray-900 cursor-pointer">
-      <input type="checkbox" bind:checked={$formData.render.is_solid_render} class="cursor-pointer" />
+    <label class="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
+      <input
+        type="checkbox"
+        bind:checked={$formData.render.is_solid_render}
+        class="cursor-pointer accent-primary"
+      />
       Solid Render
     </label>
   </div>

@@ -15,6 +15,7 @@
   } from "three";
   // @ts-ignore
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+	import { mode } from "mode-watcher";
 
   // @ts-ignore
   let container;
@@ -86,7 +87,7 @@
     if (!container) return;
 
     scene = new Scene();
-    scene.background = new Color("white");
+    scene.background = new Color(mode.current === "light" ? "white" : "rgb(20, 20, 20)");
 
     const camera = new PerspectiveCamera(
       35,

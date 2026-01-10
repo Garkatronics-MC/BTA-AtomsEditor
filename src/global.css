@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+:root {
+  --bg: 255 255 255;
+  --fg: 0 0 0;
+  --border: 229 231 235;
+}
+
+.dark {
+  --bg: 23 23 23;
+  --fg: 250 250 250;
+  --border: 55 55 55; 
+}
+
+html, body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+* {
+  border-color: rgb(var(--border));
+}
+
+.dark select {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+} 

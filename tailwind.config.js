@@ -4,7 +4,14 @@ module.exports = {
     "./src/**/*.{html,js,svelte,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: 'rgb(var(--bg) / <alpha-value>)',
+        foreground: 'rgb(var(--fg) / <alpha-value>)',
+        border: 'rgb(var(--border) / <alpha-value>)',
+      }
+
+    },
   },
   plugins: [],
 }
